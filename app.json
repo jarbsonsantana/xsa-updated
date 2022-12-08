@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "XSA",
+    "description": "XSA Sports",
+    "ios": {
+      "supportsTablet": true
+    },
+    "icon": "./assets/icon.png",
+    "android": {
+      "package": "br.com.xsasports.xsa",
+      "versionCode": 11
+    },
+    "version": "1.0.0",
+    "slug": "XSA"
+  }
+}
