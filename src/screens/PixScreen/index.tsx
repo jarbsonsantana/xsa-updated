@@ -8,10 +8,15 @@ import { Button, Modal } from '../../components/AddOrSelectClientModal/styles';
 import { TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { Image } from 'react-native';
 import PixModal from '../../components/PixModal';
+import PixValueModal from '../../components/PixValueModal';
 
 function PixScreen() {
 
     const [modalVisible, setModalVisible] = useState(false);
+    const [valorModalVisible, setValorModalVisible] = useState(false);
+    const [newPixValue, setNewPixValue] = useState<any>(null);
+    
+    
     const [activePix, setActivePix] = useState({});
 
     const [PixList,setPixList] = useState([])
@@ -33,15 +38,29 @@ function PixScreen() {
 
     },[])
 
-    
+    async function generatePix(value : number) {
+      const pixCreated = await createPix(value);
+      console.log('PixCreated: ', pixCreated);
+      let regeneratedPix = await recreatePix(pixCreated.id);
+      setActivePix({...pixCreated, valor: value, regenerated: regeneratedPix});
+      setModalVisible(true);
+    }
 
     async function criarPix() { 
-      const pixCreated = await createPix(3);
-      console.log('PixCreated: ', pixCreated);
+      setValorModalVisible(true);
+      return;
     }
 
       return (
         <Container>
+          <PixValueModal modalVisible={valorModalVisible} generatePix={generatePix} setModalVisible={setValorModalVisible} onRequestClose={async ()=>{
+              setValorModalVisible(false);
+              
+  
+              
+            }} />
+
+
                 <TouchableOpacity style={{alignSelf: 'flex-end', backgroundColor: '#eee', borderRadius: 5, marginBottom: 15, display:'flex', justifyContent: 'center', alignItems: 'center', paddingVertical: 10, paddingHorizontal: 20, marginVertical: 5, flexDirection: 'row'}} 
                   onPress={() => {
                     console.log('Criando PIX');
@@ -94,6 +113,8 @@ function PixScreen() {
             })}
             
           </ScrollView>
+          
+
           {modalVisible  && 
             <PixModal activePix={activePix} modalVisible={modalVisible} setModalVisible={setModalVisible} onRequestClose={async ()=>{
               setModalVisible(false);

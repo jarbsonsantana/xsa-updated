@@ -419,7 +419,7 @@ export const ticketDetails = async (code) => {
 
 export const getGamesFiltered = async (date1,date2) => {
   let req_url = await url()+`/api/apostar/jogosFilter?dataini=${date1}&datafim=${date2}`;
-
+  console.log(req_url);
  
   try {
 
@@ -565,7 +565,9 @@ export const getJogosAoVivoEachSecond = async (refimport) => {
 
   console.log('Fui Chamado', refimport);
 
-  const endpoint = 'https://api-cs1.123bet.com.br/cs-games.php?inplay-result='+refimport;
+  //const endpoint = 'https://api-cs1.123bet.com.br/cs-games.php?inplay-result='+refimport;
+  const endpoint = 'https://netgamer-api.123bet.com.br/api/Inplay/Result?eventId='+refimport;
+
 
     try {
 
@@ -748,7 +750,10 @@ export const diffServerTimeValidate = async () => {
   var _diffBelowTimeServer;
   var _diffAboveTimeServer;
 
-  let result = await fetch('https://api-cs1.123bet.com.br/cs-games.php?now-time')
+  // old: 
+  // old: https://api-cs1.123bet.com.br/cs-games.php?now-time
+
+  let result = await fetch('https://netgamer-api.123bet.com.br/api/Inplay/NowTime')
   .then((response) => response.text());
   
   let serverTime = (parseFloat(result)*1000);

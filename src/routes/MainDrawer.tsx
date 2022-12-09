@@ -74,14 +74,14 @@ function MyDrawer() {
       <Drawer.Screen name="Bônus" component={BonusScreen} 
         options={
           {
-            drawerIcon: ({size, color}) => <MaterialIcons name="attach-money" size={size} color={color} />
+            drawerIcon: ({size, color}) => <MaterialIcons name="wallet-giftcard" size={size} color={color} />
           }
         }
       />
       <Drawer.Screen name="Pix" component={PixScreen} 
         options={
           {
-            drawerIcon: ({size, color}) => <MaterialIcons name="attach-money" size={size} color={color} />
+            drawerIcon: ({size, color}) => <MaterialIcons name="qr-code" size={size} color={color} />
           }
         }
       />
@@ -95,7 +95,7 @@ function MyDrawer() {
       <Drawer.Screen name="Relatórios" component={ReportScreen} 
         options={
           {
-            drawerIcon: ({size, color}) => <MaterialIcons name="attach-money" size={size} color={color} />
+            drawerIcon: ({size, color}) => <MaterialIcons name="report" size={size} color={color} />
           }
         }
       />
