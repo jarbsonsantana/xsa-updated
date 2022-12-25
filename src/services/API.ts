@@ -716,6 +716,24 @@ export const deleteClient = async (id) => {
 }
 
 
+export async function preValidarAposta(token) {
+  
+  let req_url = await url()+'/api/apostas/verificarJogos'
+    let result = await fetch(req_url, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          token: token,
+        })
+      }).then(data => data.json())
+      .then(res => res);
+    return result;
+}
+
+
 
 
 export const loginUser = async (username:string,password:string) => {

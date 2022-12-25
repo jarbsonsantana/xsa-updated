@@ -273,6 +273,7 @@ const CampeonatoWithPaisScreen = ({route}) => {
                     <HeaderIcon name="arrow-back-sharp" size={18} />
                 </Button>
                 <Title> Jogos - {route.params.screenTitle ?? 'Jogos'} </Title>
+                <Button><Title> Importar </Title></Button>
             </ScreenTitle>
 
 

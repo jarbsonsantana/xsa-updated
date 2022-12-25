@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import { Container, Text, Card, View, BlackText, TextInput, Button, ButtonFull } from './styles';
-import { diffServerTimeValidate, getDados, ticketDetails, validarAposta } from '../../services/API'
+import { diffServerTimeValidate, getDados, preValidarAposta, ticketDetails, validarAposta } from '../../services/API'
 import {WebView} from 'react-native-webview';
 import AddOrSelectClientModal from '../../components/AddOrSelectClientModal';
 import { useFocusEffect } from '@react-navigation/native';
 import { EventEmitter } from '@react-navigation/native';
-import { Linking } from 'react-native';
+import { Alert, Linking } from 'react-native';
 
 function SearchTicket({navigation}) {
     const [show, setShow] = useState(false);
@@ -78,6 +78,8 @@ function SearchTicket({navigation}) {
         return true;
     }
 
+
+
     const handleSelectClient = async (response) => {
       setShow(false)
       let client = response.clientes.find((c) => c.id === response.id);
@@ -88,18 +90,57 @@ function SearchTicket({navigation}) {
         apostadorCelular: client.celular,
         token: bilhete.token
       } 
+      let canValidate = await preValidarAposta(bilhete.token);
+      if (canValidate.result == '0') {
+        Alert.alert('Erro', canValidate.result.message);
+        return;
+      } else if(canValidate.result == 2) {
 
-      let _response = await validarAposta(_data);
+        if (canValidate.result == 2) {
 
-      if (_response) {
-        alert(_response.message)
-        let result = await ticketDetails(code);
-        setBilhete({});
-        setBilhete(result.aposta);
+          Alert.alert('Confirmação', canValidate.result.message, [
+            {
+              text: "Continuar",
+              onPress: async () => {
+                let _response = await validarAposta(_data);
+                if (_response) {
+                  alert(_response.message)
+                  let result = await ticketDetails(code);
+                  setBilhete({});
+                  setBilhete(result.aposta);
+          
+                } else {
+                  alert(`Problema com a conexão ao servidor.{"\n"}Tente novamente mais tarde.`);
+                }
+              },
+            },
+            // The "No" button
+            // Does nothing but dismiss the dialog when tapped
+            {
+              text: "Cancelar",
+            },
+          ]);
 
-      } else {
-        alert(`Problema com a conexão ao servidor.{"\n"}Tente novamente mais tarde.`);
+        } else {
+          let _response = await validarAposta(_data);
+          if (_response) {
+            alert(_response.message)
+            let result = await ticketDetails(code);
+            setBilhete({});
+            setBilhete(result.aposta);
+    
+          } else {
+            alert(`Problema com a conexão ao servidor.{"\n"}Tente novamente mais tarde.`);
+          }
+        }
+
+        
       }
+
+
+      
+
+     
       
 
       console.log('Resposta final: ',_response)
@@ -176,7 +217,7 @@ function SearchTicket({navigation}) {
           }}
           
           >
-            <Text>Aprovar Bilhete</Text>
+            <Text>Aprovar Bilhete!</Text>
           </ButtonFull>}
 
          

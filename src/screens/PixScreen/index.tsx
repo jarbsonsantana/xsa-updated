@@ -73,7 +73,7 @@ function PixScreen() {
           <Card style={{justifyContent:'space-between'}}>
 
             <Text style={{width: 30}}>Cód</Text>
-            <Text style={{width: 90}}>Data</Text>
+            <Text style={{width: 90}}>Valor</Text>
             <Text style={{width: 90}}>Status</Text>
             <Text style={{width: 40}}>
               Ação
@@ -86,7 +86,7 @@ function PixScreen() {
                 <CardGray style={{justifyContent:'space-between'}} key={p.id+'test'}>
 
                   <Text style={{width: 30}}>{p.id}</Text>
-                  <Text style={{width: 90}}>{p.valor} </Text>
+                  <Text style={{width: 90}}>R$ {p.valor.replace('.',',')} </Text>
                   <Text style={{width: 90}}>{p.statustitle}</Text>
                   {p.status != 2 ? 
                   <TouchableOpacity onPress={async ()=>{
