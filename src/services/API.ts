@@ -697,11 +697,11 @@ export const findTickets = async(page = 1) => {
     }
 }
 
-export const importarBilheteApostar = async(bilhete) => {
+export const importarBilheteApostar = async(bilhete, aovivo = false) => {
 
 
-  const endpoint = await url()+'/apostar/importaBilhete?codigobilhete='+bilhete;
-  console.log('endpoint: ',endpoint);
+  var endpoint = await url()+`/${aovivo? 'aovivo': 'apostar'}/importaBilhete?codigobilhete=${bilhete}`;
+
 
   try {
   let result = await fetch(endpoint, {

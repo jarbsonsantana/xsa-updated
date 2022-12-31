@@ -17,6 +17,7 @@ import { useApostaCtx } from "../../hooks/useAposta";
 import CotacaoPais from "../../components/CotacaoPais";
 
 import { getGamesAoVivo } from "../../services/API";
+import ImportarModalAoVivo from "../../components/ImportarModalAoVivo";
 
 
 const CampeonatoAoVivoScreen = ({route}) => {
@@ -236,6 +237,8 @@ const CampeonatoAoVivoScreen = ({route}) => {
     const memoizedValue = useMemo(() => renderFlatListItem, [games, apostasCtx]);
 
     const cbRenderItem = useCallback(renderFlatListItem, [games, apostasCtx, self_apostas])
+    const [importarModalVisible, setImportarModalVisible] = useState(false);
+
     return (
         <Container>
             <LoadingModal show={isLoading} />
@@ -250,7 +253,27 @@ const CampeonatoAoVivoScreen = ({route}) => {
                     <HeaderIcon name="arrow-back-sharp" size={18} />
                 </Button>
                 <Title> {route.params.screenTitle ?? 'Jogos'} </Title>
+                <Button style={{backgroundColor: '#333', borderRadius: 5}} onPress={()=>{
+                        setImportarModalVisible(!importarModalVisible)
+                    }}><Title style={{color: '#fff', fontSize: 14}}> Importar </Title></Button>
             </ScreenTitle>
+
+            <ImportarModalAoVivo
+                aovivo={true}
+                setLoading={(status)=>{
+                    setIsLoading(status);
+                }} modalVisible={importarModalVisible} setModalVisible={setImportarModalVisible} onRequestClose={()=>{
+                    setImportarModalVisible(false);
+                }} getBillet={(num)=>{
+                    setIsLoading(true)
+
+                    num.map((_apostaItem_) => {
+                        handleAposta(_apostaItem_);
+                    });
+                    setImportarModalVisible(false);
+                    setIsLoading(false)
+                    handleFinalizar();
+                }} />
 
 
             <Row>

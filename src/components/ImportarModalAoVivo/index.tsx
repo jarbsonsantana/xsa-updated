@@ -6,7 +6,7 @@ import { Button, Modal } from '../AddClientModal/styles';
 import { TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 
 
-const ImportarModal = ({getBillet, modalVisible, setModalVisible, onRequestClose, setLoading, aovivo}) => { 
+const ImportarModalAoVivo = ({getBillet, modalVisible, setModalVisible, onRequestClose, setLoading, aovivo}) => { 
 
   const [pixValue, setPixValue] = useState<any>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -27,7 +27,7 @@ const ImportarModal = ({getBillet, modalVisible, setModalVisible, onRequestClose
   async function importarBilhete(bilhete) {
     setLoading(true);
     console.log('Importando bilhete ' , bilhete);
-    const result = await importarBilheteApostar(bilhete, aovivo);
+    const result = await importarBilheteApostar(bilhete, true);
     console.log('Resultado:', result);
 
     if (result.result == 2) {
@@ -103,11 +103,11 @@ const ImportarModal = ({getBillet, modalVisible, setModalVisible, onRequestClose
                       onRequestClose();                      
                     }}
                   >
-                    <Text style={{color: '#000'}}> Fechar </Text>
+                    <Text style={{color: '#000'}}> Fechar  </Text>
                 </TouchableOpacity>
 
                 
-                <Text style={{color: '#fefefe', margin: 10}}> Digite o Código do Bilhete aaa </Text>
+                <Text style={{color: '#fefefe', margin: 10}}> Digite o Código do Bilhete </Text>
                 <TextInput 
                 value={pixValue}
                 onChangeText={setPixValue}
@@ -135,4 +135,4 @@ const ImportarModal = ({getBillet, modalVisible, setModalVisible, onRequestClose
           </>
     )
 }
-export default ImportarModal;
+export default ImportarModalAoVivo;

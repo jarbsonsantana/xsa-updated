@@ -253,7 +253,8 @@ const CampeonatoScreen = ({route}) => {
                 
             </ScreenTitle>
 
-            <ImportarModal setLoading={(status)=>{
+            <ImportarModal 
+            aovivo={route.params.isLive} setLoading={(status)=>{
               
                 }} modalVisible={importarModalVisible} setModalVisible={setImportarModalVisible} onRequestClose={()=>{
                     setImportarModalVisible(false);

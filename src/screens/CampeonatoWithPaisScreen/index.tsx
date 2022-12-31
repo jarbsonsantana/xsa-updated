@@ -283,7 +283,8 @@ const CampeonatoWithPaisScreen = ({route}) => {
                 
                 </View>
 
-                <ImportarModal setLoading={(status)=>{
+                <ImportarModal 
+                aovivo={route.params.date == 'online'} setLoading={(status)=>{
                     setIsLoading(status);
                 }} modalVisible={importarModalVisible} setModalVisible={setImportarModalVisible} onRequestClose={()=>{
                     setImportarModalVisible(false);
