@@ -17,6 +17,8 @@ import { getImpressaoCampeonato } from "../../services/API";
 import {
     BLEPrinter,
   } from "react-native-thermal-receipt-printer";
+import { View } from "../Finalizar/styles";
+import ImportarModal from "../../components/ImportarModal";
 
 const CampeonatoScreen = ({route}) => {
 
@@ -226,6 +228,8 @@ const CampeonatoScreen = ({route}) => {
         BLEPrinter.printText(impressao);
     }
 
+    const [importarModalVisible, setImportarModalVisible] = useState(false);
+
     return (
         <Container>
 
@@ -240,7 +244,28 @@ const CampeonatoScreen = ({route}) => {
                     <HeaderIcon name="arrow-back-sharp" size={18} />
                 </Button>
                 <Title> {game.title} </Title>
+               
+                    <Button style={{backgroundColor: '#333', borderRadius: 5}} onPress={()=>{
+                        setImportarModalVisible(!importarModalVisible)
+                    }}><Title style={{color: '#fff', fontSize: 14}}> Importar </Title></Button>
+
+                
+                
             </ScreenTitle>
+
+            <ImportarModal setLoading={(status)=>{
+              
+                }} modalVisible={importarModalVisible} setModalVisible={setImportarModalVisible} onRequestClose={()=>{
+                    setImportarModalVisible(false);
+                }} getBillet={(num)=>{
+
+                    num.map((_apostaItem_) => {
+                        handleAposta(_apostaItem_);
+                    });
+                    setImportarModalVisible(false);
+    
+                    handleFinalizar();
+                }} />
 
 
             <Row>

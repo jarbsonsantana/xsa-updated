@@ -513,6 +513,8 @@ const Finalizar = ({route}) => {
                     
                 </Button>
                 
+                
+                
                
                 {jogos().map((jogo) =>
                 

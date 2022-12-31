@@ -417,9 +417,27 @@ export const ticketDetails = async (code) => {
     return result;
 }
 
+export const getAllGames = async () => { 
+  let req_url = await url()+`/api/apostar/jogos`;
+  console.log(req_url);
+ 
+  try {
+
+    let result = await fetch(req_url)
+    .then((data)=>data.json())
+    .then((data) => data);
+    
+    check401Result(result);
+    return result;
+
+    } catch(error) {
+        console.log(error)
+    }
+}
+
+
 export const getGamesFiltered = async (date1,date2) => {
   let req_url = await url()+`/api/apostar/jogosFilter?dataini=${date1}&datafim=${date2}`;
-  console.log(req_url);
  
   try {
 
@@ -677,6 +695,33 @@ export const findTickets = async(page = 1) => {
     } catch(error) {
         console.log('Erro: '+error)
     }
+}
+
+export const importarBilheteApostar = async(bilhete) => {
+
+
+  const endpoint = await url()+'/apostar/importaBilhete?codigobilhete='+bilhete;
+  console.log('endpoint: ',endpoint);
+
+  try {
+  let result = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      bilhete: bilhete
+    })
+  })
+  .then((data)=>data.json())
+  .then((data) => data);
+
+  return result;
+
+  } catch(error) {
+      console.log(error)
+  }
 }
 
 

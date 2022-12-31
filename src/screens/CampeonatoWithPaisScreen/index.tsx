@@ -3,7 +3,7 @@ import {Container, Row,ScrollView, InputValor, TitleTable,ButtonImprimir, Title,
 
 import { useNavigation } from "@react-navigation/native";
 
-import { FlatList } from "react-native";
+import { FlatList, View } from "react-native";
 
 import LoadingModal from "../../components/LoadingModal";
 
@@ -22,6 +22,7 @@ import { TdLeft } from "../CampeonatoScreen/styles";
 import {
     BLEPrinter,
   } from "react-native-thermal-receipt-printer";
+import ImportarModal from "../../components/ImportarModal";
 
 
 const CampeonatoWithPaisScreen = ({route}) => {
@@ -65,6 +66,7 @@ const CampeonatoWithPaisScreen = ({route}) => {
     
 
     const [games, setGames] = useState({});
+    const [importarModalVisible, setImportarModalVisible] = useState(false);
 
 
     function ShowNextPage() { 
@@ -273,7 +275,30 @@ const CampeonatoWithPaisScreen = ({route}) => {
                     <HeaderIcon name="arrow-back-sharp" size={18} />
                 </Button>
                 <Title> Jogos - {route.params.screenTitle ?? 'Jogos'} </Title>
-                <Button><Title> Importar </Title></Button>
+                <View style={{display: 'flex', justifyContent: 'flex-end'}}>
+                    <Button style={{backgroundColor: '#333', borderRadius: 5}} onPress={()=>{
+                        setImportarModalVisible(!importarModalVisible)
+                    }}><Title style={{color: '#fff', fontSize: 14}}> Importar </Title></Button>
+
+                
+                </View>
+
+                <ImportarModal setLoading={(status)=>{
+                    setIsLoading(status);
+                }} modalVisible={importarModalVisible} setModalVisible={setImportarModalVisible} onRequestClose={()=>{
+                    setImportarModalVisible(false);
+                }} getBillet={(num)=>{
+                    setIsLoading(true)
+
+                    num.map((_apostaItem_) => {
+                        handleAposta(_apostaItem_);
+                    });
+                    setImportarModalVisible(false);
+                    setIsLoading(false)
+                    handleFinalizar();
+                }} />
+
+                
             </ScreenTitle>
 
 
