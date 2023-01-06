@@ -122,8 +122,8 @@ export const InputValor = styled.TextInput`
     background-color: white;
     flex: 1;
     border-radius: 5px;
-    margin-right: 10px;
-    padding-left: 10px;
+    margin-right: 5px;
+    padding-left: 5px;
     height: 45px;
 `;
 

@@ -3,6 +3,7 @@ import { Container, Text,TicketsList, Button, Header, Sumario, SumarioText, B } 
 import {WebView} from 'react-native-webview';
 import { useNavigation, DrawerActions } from '@react-navigation/core';
 import { captureRef } from "react-native-view-shot";
+import * as Sharing from "expo-sharing";
 import {
   BLEPrinter,
 } from "react-native-thermal-receipt-printer";
@@ -46,6 +47,16 @@ function EndTicketScreen({route, navigation}) {
       setCurrentPrinter(printers[0]);
       BLEPrinter.printText(texto);
     }
+
+    const handleScreenCapture = async () => {
+      captureRef(webview, {
+          format: "jpg",
+          quality: 0.8,
+        }).then(
+          (uri) => Sharing.shareAsync("file://" + uri)
+        );
+  }
+
     const takeScreenshot = _ => {
       console.log(globalComponentHeight)
       const {height} = Dimensions.get("window")
@@ -90,7 +101,8 @@ function EndTicketScreen({route, navigation}) {
             <View style={{display: 'flex', flexDirection:'row', width: '80%', justifyContent:'space-around'}}>
             <Button style={{padding: 10, marginBottom: 10, marginTop: 10,  backgroundColor: 'green', width:"45%", borderRadius: 5, justifyContent: 'center', alignItems:'center'}} 
             onPress={(e)=>{
-              takeScreenshot(e)
+              handleScreenCapture();
+              // takeScreenshot(e)
             }}>
               <Text style={{width: '100%', textAlign:'center'}}>Compartilhar</Text>
             </Button>

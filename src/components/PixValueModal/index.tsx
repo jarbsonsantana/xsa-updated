@@ -50,7 +50,9 @@ const PixValueModal = ({generatePix, modalVisible, setModalVisible, onRequestClo
                 <TextInput 
                 value={pixValue}
                 onChangeText={setPixValue}
-                style={{backgroundColor: 'white', width:'50%', height: 40, borderRadius: 3, padding: 10}} keyboardType="numeric" placeholder="Digite o valor" />
+                style={{backgroundColor: 'white', width:'50%', height: 40, borderRadius: 3, padding: 10}} 
+                keyboardType="numeric" 
+                placeholder="Digite o valor" />
                 <TouchableOpacity style={{backgroundColor: '#eee', display:'flex', justifyContent: 'center', alignItems: 'center', paddingVertical: 5, paddingHorizontal: 10, marginVertical: 5, borderRadius: 5, flexDirection: 'row'}} 
                     onPress={()=>{
                       console.log('clicou');

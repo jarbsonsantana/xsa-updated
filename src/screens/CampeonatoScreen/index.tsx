@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import {Container, Row,ScrollView, InputValor, TitleTable,ButtonImprimir, Title, ScreenTitle, Button, HeaderIcon, Th, Td, CotacaoBtn, ButtonFinalizar, FinalizarTxt, TdLeft } from './styles'
+import {Container, Row,ScrollView, InputValor, TitleTable,ButtonImprimir, Title, ScreenTitle, Button, HeaderIcon, Th, Td, CotacaoBtn, ButtonFinalizar, FinalizarTxt, TdLeft, Text } from './styles'
 
 import { useNavigation } from "@react-navigation/native";
 
@@ -245,9 +245,7 @@ const CampeonatoScreen = ({route}) => {
                 </Button>
                 <Title> {game.title} </Title>
                
-                    <Button style={{backgroundColor: '#333', borderRadius: 5}} onPress={()=>{
-                        setImportarModalVisible(!importarModalVisible)
-                    }}><Title style={{color: '#fff', fontSize: 14}}> Importar </Title></Button>
+                
 
                 
                 
@@ -274,6 +272,11 @@ const CampeonatoScreen = ({route}) => {
                 <InputValor placeholder={'Valor'} value={retornoStr} editable={false} selectTextOnFocus={false} style={{color:'#555555'}} />
                 <ButtonImprimir onPress={handlePrintButtonPress}>
                     <HeaderIcon name="print" size={14} />
+                    {/* <Text style={{fontSize: 7}}>Imprimir</Text> */}
+                </ButtonImprimir>
+                <ButtonImprimir onPress={()=>{setImportarModalVisible(!importarModalVisible)}}>
+                    <HeaderIcon name="cloud-upload" size={14} />
+                    {/* <Text style={{fontSize: 7}}>Importar</Text> */}
                 </ButtonImprimir>
                 <ButtonFinalizar onPress={handleFinalizar}>
                     <FinalizarTxt>Finalizar ({apostasCtx.length})</FinalizarTxt>

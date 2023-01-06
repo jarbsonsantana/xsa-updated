@@ -178,9 +178,10 @@ const MaisCotacoes = ({diccCotacoes, diccGrupos, show, jogo, handleClose, handle
                         {_cotFromThisGroup.map((cot) => {
                             if (parseFloat(getNormalizedOdd(
                                 jogo.cotacoes[category][cot.campo] > 100 ? jogo.cotacoes[category][cot.campo]: jogo.cotacoes[category][cot.campo].toFixed(2)
-                                    )) < 1) {
-                                        return;
+                                    )) <= 1) {
+                                        return null;
                                     }
+                                 
 
                             return(
                                 <Item key={`item-${jogo.id}-${cot.id}-${cot.campo}`}>

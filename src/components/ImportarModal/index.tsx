@@ -107,7 +107,7 @@ const ImportarModal = ({getBillet, modalVisible, setModalVisible, onRequestClose
                 </TouchableOpacity>
 
                 
-                <Text style={{color: '#fefefe', margin: 10}}> Digite o Código do Bilhete aaa </Text>
+                <Text style={{color: '#fefefe', margin: 10}}> Digite o Código do Bilhete </Text>
                 <TextInput 
                 value={pixValue}
                 onChangeText={setPixValue}

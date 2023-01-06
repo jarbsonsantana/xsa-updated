@@ -7,6 +7,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { Button, Modal } from '../AddClientModal/styles';
 import { TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
 import { Image } from 'react-native';
+import * as Clipboard from 'expo-clipboard';
 
 const PixModal = ({activePix, modalVisible, setModalVisible, onRequestClose}) => { 
 
@@ -61,7 +62,8 @@ const PixModal = ({activePix, modalVisible, setModalVisible, onRequestClose}) =>
                 <Text style={{color: '#fefefe'}}> Utilize o código para depositar (Copie & Cole) </Text>
 
                 <TouchableOpacity style={{backgroundColor: 'white', display:'flex', marginVertical: 15, backgroundColor: 'lightblue', justifyContent: 'center', alignItems: 'center', paddingVertical: 10, paddingHorizontal: 20,borderRadius: 10, marginVertical: 0, flexDirection: 'row'}} 
-                  onPress={()=>{
+                  onPress={async ()=>{
+                    await Clipboard.setStringAsync(activePix?.regenerated?.qrcode);
                     Alert.alert('Sucesso', 'Chave PIX Copiada com sucesso');
                   }}
                 >
