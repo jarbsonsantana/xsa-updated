@@ -163,6 +163,7 @@ function LoginScreen({route}) {
             console.log(savedLoggins[itemIndex]);
             setUser(savedLoggins[itemIndex-1].user);
             setPass(savedLoggins[itemIndex-1].pass);
+            setChecked(true);
           }
           
           }

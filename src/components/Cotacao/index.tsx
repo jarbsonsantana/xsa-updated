@@ -247,7 +247,7 @@ function Cotacao (props) {
             </GameArea>
             <CotacaoArea>
                 {
-                    jogo.cotacoes[90].m_ftr_1 <= 1 || !jogoValido || jogo.bloqueado == 1 ? 
+                    getNormalizedOdd(jogo.cotacoes[90].m_ftr_1.toFixed(2)) <= 1 || jogo.cotacoes[90].m_ftr_1 <= 1 || !jogoValido || jogo.bloqueado == 1 ? 
                     <Locked>
                         { (jogo.bloqueado == 1 || (jogo.cotacoes[90].m_ftr_1 <= 1 && jogoValido))  && <Icon name="ios-lock-closed" size={12}/>}
 
@@ -264,7 +264,7 @@ function Cotacao (props) {
                
 
                {
-                    jogo.cotacoes[90].m_ftr_draw <= 1 || !jogoValido || jogo.bloqueado==1 ? 
+                    getNormalizedOdd(jogo.cotacoes[90].m_ftr_draw.toFixed(2)) <= 1 || jogo.cotacoes[90].m_ftr_draw <= 1 || !jogoValido || jogo.bloqueado==1 ? 
                     <Locked>
                         { (jogo.bloqueado == 1 || (jogo.cotacoes[90].m_ftr_draw <= 1 && jogoValido)) && <Icon name="ios-lock-closed" size={12}/>}
 
@@ -277,7 +277,7 @@ function Cotacao (props) {
                 }
 
                 {
-                    jogo.cotacoes[90].m_ftr_2 <= 1 || !jogoValido || jogo.bloqueado == 1 ? 
+                    getNormalizedOdd(jogo.cotacoes[90].m_ftr_2.toFixed(2)) <= 1 || jogo.cotacoes[90].m_ftr_2 <= 1 || !jogoValido || jogo.bloqueado == 1 ? 
                     <Locked>
                         { (jogo.bloqueado == 1 || (jogo.cotacoes[90].m_ftr_2 <= 1 && jogoValido)) && <Icon name="ios-lock-closed" size={12}/>}
 

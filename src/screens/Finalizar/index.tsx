@@ -130,7 +130,8 @@ const Finalizar = ({route}) => {
         const _req = {
             valor: valorAposta,
             clienteId: clientSelected,
-            jogos: defaultJogo
+            jogos: defaultJogo,
+            pagamento: pagamento
         }
         
         let isLive = route.params.isLive ?? false;
