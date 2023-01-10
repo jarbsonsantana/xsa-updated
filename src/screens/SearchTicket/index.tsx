@@ -91,10 +91,26 @@ function SearchTicket({navigation}) {
         token: bilhete.token
       } 
       let canValidate = await preValidarAposta(bilhete.token);
+      console.log(canValidate,'validate');
       if (canValidate.result == '0') {
         Alert.alert('Erro', canValidate.result.message);
         return;
-      } else if(canValidate.result == 2) {
+      } else if(canValidate.result == 1) {
+        let _response = await validarAposta(_data);
+                console.log('resposta', _response);
+                if (_response) {
+                  alert(_response.message)
+                  let result = await ticketDetails(code);
+                  setBilhete({});
+                  setBilhete(result.aposta);
+          
+                } else {
+                  alert(`Problema com a conexão ao servidor.{"\n"}Tente novamente mais tarde.`);
+                }
+      }
+
+      
+      else if(canValidate.result == 2) {
 
         if (canValidate.result == 2) {
 
@@ -103,6 +119,7 @@ function SearchTicket({navigation}) {
               text: "Continuar",
               onPress: async () => {
                 let _response = await validarAposta(_data);
+                console.log('resposta', _response);
                 if (_response) {
                   alert(_response.message)
                   let result = await ticketDetails(code);
@@ -123,6 +140,7 @@ function SearchTicket({navigation}) {
 
         } else {
           let _response = await validarAposta(_data);
+          console.log('resposta', _response);
           if (_response) {
             alert(_response.message)
             let result = await ticketDetails(code);
@@ -137,13 +155,6 @@ function SearchTicket({navigation}) {
         
       }
 
-
-      
-
-     
-      
-
-      console.log('Resposta final: ',_response)
     }
 
     function onShouldStartLoadWithRequest(request){

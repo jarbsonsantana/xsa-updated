@@ -94,7 +94,7 @@ function EndTicketScreen({route, navigation}) {
                     if (ref != null)
                       webview = ref
                 }}
-                style={{flex:1, width:330, height: '100%'}}
+                style={{flex:1, width:330, height: '150%'}}
                 originWhitelist={['*']}
                 source={{uri: route.params.aposta.urlBilhete}}
             />

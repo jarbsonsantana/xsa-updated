@@ -13,6 +13,7 @@ const MaisCotacoes = ({diccCotacoes, diccGrupos, show, jogo, handleClose, handle
     const [apostasCtx, setApostasCtx] = useApostaCtx();
 
 
+
     var activeGroup = null;
     // useEffect(()=>{
     //     const getDic = async () => {
@@ -28,37 +29,12 @@ const MaisCotacoes = ({diccCotacoes, diccGrupos, show, jogo, handleClose, handle
     const tempos = Object.keys(jogo.cotacoes)
     let p = jogo.cotacoes[tempos[0]];
     
-
-
-  
-    // const data = useMemo(()=>{
-    //     let data = {};
-    //     tempos.map((t)=>{
-    //         data[t] = jogo.cotacoes[t];
-    //     })
-    //     return data;
-    // },[jogo]);
-
-    // const translate = (k) => {
-
-        
-
-    //     if (diccCotacoes) {
-    //         let dado = diccCotacoes.find((i)=>{
-    //             return i.campo == k
-    //         })
-    //         if (dado)
-    //             return dado.title;
-    //         } else {
-    //             return null;
-    //         }
-    // }
-    
+    let _myActualApostas =  apostasCtx;  
     const checkIfSelected = (cot) => {
         const jogoId = jogo.id;
         const tempo = category;
 
-        let _myApostas = apostasCtx.filter((ap)=> ap.cotacao == cot && ap.jogo == jogoId && ap.tempo == tempo);
+        let _myApostas = _myActualApostas.filter((ap)=> ap.cotacao == cot && ap.jogo == jogoId && ap.tempo == tempo);
         if (_myApostas.length > 0) {
             return true
         } else {
@@ -98,12 +74,15 @@ const MaisCotacoes = ({diccCotacoes, diccGrupos, show, jogo, handleClose, handle
    const hasCotationFromThisGroup = (group_id) => {
 
        const _cotacoes = diccCotacoes.filter((cot) => cot.grupo == group_id.toString() && jogo.cotacoes[category].hasOwnProperty(cot.campo) );
-  
+       
         if (_cotacoes.length < 1) {
             return false;
         } else {
+            console.log(_cotacoes[0],'keycots');
             return _cotacoes;
         }
+
+        
      
        
    }
@@ -119,7 +98,7 @@ const MaisCotacoes = ({diccCotacoes, diccGrupos, show, jogo, handleClose, handle
    function getNormalizedOdd(odd) {
    
     
-    
+    var lastCotTitle = null;
 
     const gameFilteredByTeto = Math.min(odd, tetoCotacao );
    
@@ -131,7 +110,14 @@ const MaisCotacoes = ({diccCotacoes, diccGrupos, show, jogo, handleClose, handle
     
     // return gameFilteredByTeto + (gameFilteredByTeto * ()/100);
     // return  gameFilteredByTeto+ ( (gameFilteredByTeto*(parseFloat(ajusteJogo) + parseFloat(ajusteUsuario))/100) )
-}
+}   
+    var lastCot = '';
+    const setLastCot = (cot)=> {
+        lastCot = cot;
+    }
+    const checkLastCot = (cot) => {
+        return lastCot == cot 
+    }
 
     return (     
         <Modal
@@ -141,7 +127,7 @@ const MaisCotacoes = ({diccCotacoes, diccGrupos, show, jogo, handleClose, handle
     >
         <ModalDiv>
             <ModalBox>
-            <TextWhite>{jogo.refimport} - Testa</TextWhite>
+            <TextWhite>{jogo.refimport}</TextWhite>
                 <ButtonNoBG onPress={handleClose}>
                     <TextWhite>Fechar </TextWhite>
                     
@@ -176,13 +162,15 @@ const MaisCotacoes = ({diccCotacoes, diccGrupos, show, jogo, handleClose, handle
                             </Category>
                         </View>
                         {_cotFromThisGroup.map((cot) => {
+                            
+                            
                             if (parseFloat(getNormalizedOdd(
                                 jogo.cotacoes[category][cot.campo] > 100 ? jogo.cotacoes[category][cot.campo]: jogo.cotacoes[category][cot.campo].toFixed(2)
                                     )) <= 1) {
                                         return null;
                                     }
-                                 
-
+                                if (checkLastCot == cot.title) { return null ;}
+                                setLastCot(cot.title);
                             return(
                                 <Item key={`item-${jogo.id}-${cot.id}-${cot.campo}`}>
                                     <LineText>{cot.title}</LineText>
