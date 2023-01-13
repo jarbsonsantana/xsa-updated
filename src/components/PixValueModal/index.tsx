@@ -48,7 +48,7 @@ const PixValueModal = ({generatePix, modalVisible, setModalVisible, onRequestClo
                 
                 <Text style={{color: '#fefefe', margin: 10}}> Qual o valor desejado? </Text>
                 <TextInput 
-                value={pixValue.replace('.',',')}
+                value={pixValue ? pixValue.toString().replace(',','.') : ''}
                 onChangeText={setPixValue}
                 style={{backgroundColor: 'white', width:'50%', height: 40, borderRadius: 3, padding: 10}} 
                 keyboardType="numeric" 
