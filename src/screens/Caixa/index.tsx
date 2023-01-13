@@ -4,6 +4,7 @@ import { getCaixa } from '../../services/API'
 import { Card as CardB } from '../ReportScreen/styles';
 import { IconDate, MainButton, Row, TextDate, TextWhite } from '../ReportScreen/styles';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { Picker } from '@react-native-picker/picker';
 
 function CaixaScreen() {
 
@@ -17,6 +18,8 @@ function CaixaScreen() {
     const [date2, setDate2] = useState('');
     const [date1_real, setDate1Real] = useState('');
     const [date2_real, setDate2Real] = useState('');
+
+    const [paymentType, setPaymentType] = useState('credito');
     
     const [showDate2, setShowDate2] = useState(false);
 
@@ -147,6 +150,34 @@ function CaixaScreen() {
               onChange={handleDate2}
             />} 
         </CardB>
+        </Row>
+        <Row>
+        <Picker
+                    
+                    mode="dialog"
+                    accessibilityLabel="Client Picker"
+                    prompt="Selecione um cliente"
+                    dropdownIconColor="grey"
+                    style={{color: '#333', flex:2, height: 40, backgroundColor: '#444', color: 'white', marginVertical: 10}}
+                    selectedValue={paymentType}
+                    onValueChange={(itemValue, itemIndex) => { setPaymentType(itemValue)}}
+                    >
+                    <Picker.Item 
+                    label="Crédito" 
+                    value="credito"
+                    style={{backgroundColor: 'cyan', padding: 0, margin: 0, height: 10}}
+                    />
+                    <Picker.Item 
+                    label="Bônus" 
+                    value="bonus"
+                    style={{backgroundColor: 'cyan', padding: 0, margin: 0, height: 10}}
+                    />
+                    <Picker.Item 
+                    label="Todos" 
+                    value="todos"
+                    style={{backgroundColor: 'cyan', padding: 0, margin: 0, height: 10}}
+                    />
+            </Picker>
         </Row>
         <Row style={{marginBottom: 30}}>
         <MainButton onPress={handleSearch}>

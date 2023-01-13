@@ -307,7 +307,7 @@ export const getClientes = async () => {
 }
 
 
-export const getCaixa = async (dataInicial = null, dataFinal = null) => {
+export const getCaixa = async (dataInicial = null, dataFinal = null, paymentType = 'credito') => {
   var now = new Date();
   var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
   var lastSunday = new Date(today.setDate(today.getDate()-today.getDay()));
@@ -330,7 +330,9 @@ export const getCaixa = async (dataInicial = null, dataFinal = null) => {
         },
         body: JSON.stringify({
           dataInicial: dataInicial,
-          dataFinal: dataFinal
+          dataFinal: dataFinal,
+          tipopagamento: paymentType
+
         })
       }).then(data => data.json())
       .then(res => res);

@@ -8,12 +8,10 @@ import { FlatList } from "react-native";
 import LoadingModal from "../../components/LoadingModal";
 
 import { BackHandler, Alert } from 'react-native';
-
-import Cotacao from "../../components/Cotacao";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect } from '@react-navigation/native';
-
 import { useApostaCtx } from "../../hooks/useAposta";
+
+
+
 import CotacaoPais from "../../components/CotacaoPais";
 
 import { getGamesAoVivo } from "../../services/API";
@@ -37,7 +35,6 @@ const CampeonatoAoVivoScreen2 = ({route}) => {
     
 
     const [valorAposta, setValorAposta] = useState(route.params.serverData.apostaMin.toString());
-    //console.log(campeonatos[0].title);
     
 
     const [games, setGames] = useState({});

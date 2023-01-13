@@ -37,7 +37,7 @@ function AoVivoScreen() {
           await AsyncStorage.setItem('@diccotacoes', JSON.stringify(result.cotacoes));
           setLoading(false);
           diffServerTimeValidate();
-          //console.log('getGamesData chamado na página campeonato');
+
       }
       getGamesData();
 
