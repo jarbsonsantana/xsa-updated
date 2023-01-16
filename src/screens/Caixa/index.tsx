@@ -78,7 +78,7 @@ function CaixaScreen() {
 
     const handleSearch = async () => {
 
-      let result = await getCaixa(date1_real,date2_real);
+      let result = await getCaixa(date1_real,date2_real,paymentType);
       console.log(result);
          setCaixa(result.results);
          setTotal(result.total);
@@ -94,7 +94,7 @@ function CaixaScreen() {
 
     useEffect(()=>{
       const myCaixa = async() => {
-        let result = await getCaixa(lastSunday,nextSunday);
+        let result = await getCaixa(lastSunday,nextSunday,paymentType);
           console.log(result);
          setCaixa(result.results);
          setTotal(result.total);
